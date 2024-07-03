@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Header: React.FC = () => {
+const Header: React.FC<any> = (props) => {
+  
   return (
-    <header className="bg-gray-800 p-4"><div className="container mx-auto text-white">
-        Header
-      </div></header>
+    <header className="header">
+      <div className="header">
+        {props.title}
+      </div>
+
+    </header>
   );
 }
 

@@ -1,8 +1,15 @@
 import React from 'react';
+import TaskForm from '../components/TaskForm';
+import ITask from "../interfaces/ITask";
 
 const Tasks: React.FC = () => {
+
+    let tasks= fetchTasks();
+    console.log(tasks)
   return (
-    <div className="container mx-auto mt-4"><p className="mt-2">Liste des tâches</p></div>
+    <div>
+      <TaskForm />
+    </div>
   );
 }
 

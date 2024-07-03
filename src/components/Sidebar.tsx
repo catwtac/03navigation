@@ -1,16 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
+type Props = {
+  onChangeSideBar: (title: string) => void,
+};
+const Sidebar: React.FC<any> = (props: Props) => {
+  const location = useLocation();
+  function onChangeSideBar(value: string) {
+    return props.onChangeSideBar(value);
+  }
+
   return (
-    <aside className="bg-gray-900 text-white w-64 min-h-screen">
-      <div className="p-4">
-        <h2 className="text-xl font-bold">Sidebar</h2>
+    <aside >
+      <div className="columnOne">
+
+        <h2 className="logo"> <img src="./images/logo.png" alt="logo" /></h2>
+
         <ul className="mt-4">
-          <li><Link to="/" className="text-gray-300 hover:text-white block p-2">Accueil</Link></li>
-          <li><Link to="/tasks" className="text-gray-300 hover:text-white block p-2">Tâches</Link></li>
-      
+          <li><Link to="/" className={location.pathname === "/" ? "linkSelected" : ""}
+            onClick={() => onChangeSideBar('Accueil')} >Accueil</Link></li>
+          <li><Link to="/tasks" className={location.pathname === "/tasks" ? "linkSelected" : ""} 
+          onClick={() => onChangeSideBar('Tâches')}>Tâches</Link></li>
+          <li><Link to="/about" className={location.pathname === "/about" ? "linkSelected" : ""} 
+          onClick={() => onChangeSideBar('A propos')}>A propos</Link></li>
         </ul>
+        
       </div>
     </aside>
   );

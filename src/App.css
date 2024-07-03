@@ -27,6 +27,135 @@
 .App-link {
   color: #61dafb;
 }
+/* page accueil */
+
+.linkSelected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-left: 50px;
+  font-size: 60px;
+}
+
+.templateRow {
+  display: flex;
+  flex-direction: row;
+  border: solid;
+  border-color: rgb(232, 215, 27);
+  border-radius: 2%;
+}
+
+.columnOne {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+  margin-top: 30px;
+}
+
+.templateColumn {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  border-radius: 2%;
+  border-color: rgb(7, 94, 50);
+  width: 80%;
+  height: 100vh;
+}
+
+/* formulaire des tâches */
+
+.formTask {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.formTask form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formTask div {
+  margin-bottom: 15px;
+}
+
+.formTask input[type="text"],
+.formTask textarea,
+.formTask input[type="date"],
+.formTask input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+}
+
+.formTask input[type="submit"] {
+  background-color: #5236df;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 16px;
+  align-self: center; /* Centre le bouton horizontalement */
+}
+
+.formTask input[type="submit"]:hover {
+  background-color: #5236df57;
+}
+
+.formTask .errorTitle {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+.formTask .checkboxContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.formTask .checkboxContainer label {
+  display: flex;
+  align-items: center;
+}
+
+.formTask .checkboxContainer input {
+  margin-left: 10px;
+}
+
+.titleErrorHidden {
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
+}
+
+.titleErrorVisible {
+  visibility: visible;
+  color: red;
+}
+
+.dateErrorHidden {
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
+}
+
+.dateErrorVisible {
+  visibility: visible;
+  color: red;
+}
 
 @keyframes App-logo-spin {
   from {
