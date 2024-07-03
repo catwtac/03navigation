@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import ITask from '../interfaces/ITask';
 
-const TaskForm: React.FC = () => {
+const TaskFormObject: React.FC<any> = ({ addTaskInComponentTasks }) => {
     const [titleVisible, setTitleVisible] = useState('titleErrorHidden');
     const [dateVisible, setDatVisible] = useState('dateErrorHidden')
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [dateTask, setDateTask] = useState('');
-    const [done, setDone] = useState(false);
+    // const [title, setTitle] = useState('');
+    // const [description, setDescription] = useState('');
+    // const [dateTask, setDateTask] = useState('');
+    // const [done, setDone] = useState(false);
+
+    const [taskForm, setTaskForm] = useState<ITask>({ title: '', date: '' });
 
     enum FormFields {
         StringField,
@@ -19,16 +22,20 @@ const TaskForm: React.FC = () => {
 
     function handleChange<T>(value: T, typefield: number): void {
         if (typefield === FormFields.StringField) {
-            setTitle(value as string);
+            // setTitle(value as string);
+            setTaskForm({ ...taskForm, title: value as string })
         }
         if (typefield === FormFields.TextAreaField) {
-            setDescription(value as string);
+            // setDescription(value as string);
+            setTaskForm({ ...taskForm, description: value as string })
         }
         if (typefield === FormFields.DateField) {
-            setDateTask(value as string);
+            // setDateTask(value as string);
+            setTaskForm({ ...taskForm, date: value as string })
         }
         if (typefield === FormFields.CheckBoxField) {
-            setDone(value as boolean);
+            //setDone(value as boolean);
+            setTaskForm({ ...taskForm, done: value as boolean })
         }
     }
 
@@ -40,18 +47,20 @@ const TaskForm: React.FC = () => {
         setDatVisible('dateErrorHidden');
         setDatVisible('dateErrorVsible');
 
-        let validate = true;
+        let fieldsValidated = true;
 
-        if (title === '') {
+        if (taskForm.title === '') {
             setTitleVisible('titleErrorVisible');
-            validate = false;
+            fieldsValidated = false;
         }
-        if (dateTask === '') {
+        if (taskForm.date === '') {
             setDatVisible('dateErrorVisible');
-            validate = false;
+            fieldsValidated = false;
         }
-
-        return validate;
+        if (fieldsValidated) {
+            addTaskInComponentTasks(taskForm)
+        }
+        return fieldsValidated;
 
 
 
@@ -61,17 +70,17 @@ const TaskForm: React.FC = () => {
         <div className="formTask">
             <form onSubmit={modifyTask}>
                 <div><input onChange={(event) => handleChange(event.target.value, FormFields.StringField)}
-                    type="text" value={title} placeholder="Intitulé *" /></div>
+                    type="text" value={taskForm.title} placeholder="Intitulé *" /></div>
                 <div className={titleVisible}>Veuillez renseigner le champ</div>
                 <div><textarea onChange={(event) => handleChange(event.target.value, FormFields.TextAreaField)}
-                    value={description} placeholder="Description" rows={10}></textarea></div>
+                    value={taskForm.description} placeholder="Description" rows={10}></textarea></div>
                 <div><input onChange={(event) => handleChange(event.target.value, FormFields.DateField)}
-                    type="date" value={dateTask} placeholder="Date jj/mm/aaaa" /></div>
+                    type="date" value={taskForm.date} placeholder="Date jj/mm/aaaa" /></div>
                 <div className={dateVisible}>Veuillez mettre la date</div>
                 <div className="checkboxContainer">
                     <label htmlFor="done">
                         <input onChange={(event) => handleChange(event.target.checked, FormFields.CheckBoxField)}
-                            type="checkbox" checked={done} id="done" name="done" />
+                            type="checkbox" checked={taskForm.done} id="done" name="done" />
                         Done
                     </label>
                 </div>
@@ -81,4 +90,4 @@ const TaskForm: React.FC = () => {
     );
 }
 
-export default TaskForm;
+export default TaskFormObject;

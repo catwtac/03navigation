@@ -17,14 +17,19 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
-const PORT = 5001;
+//on configure le fichier .env pour le serveur.js dans le répertoire src/server/.env
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, ".env") });
 // Middleware
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
+//const PORT = process.env.PORT;
+const PORT = 5001;
 // MongoDB connection
 mongoose_1.default
-    .connect("mongodb://localhost:27017/tasks", {
+    .connect("mongodb://localhost:27017/tasksdb", {
 //useNewUrlParser: true,
 //useUnifiedTopology: true,
 })
@@ -43,7 +48,7 @@ app.get("/tasks", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tasks = yield Task.find();
     res.json(tasks);
 }));
-app.post("/tasks", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post("/task", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const task = new Task(req.body);
     yield task.save();
     res.json(task);
@@ -58,4 +63,8 @@ app.delete("/tasks/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
     yield Task.findByIdAndDelete(req.params.id);
     res.json({ message: "Task deleted" });
 }));
-app.listen(PORT, () => console.log("Server running on port ${PORT}"));
+app.get("/gettask/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Task.findById(req.params.id);
+    res.json({ message: "Get Task" });
+}));
+app.listen(PORT, () => console.log("Server running on port " + PORT));

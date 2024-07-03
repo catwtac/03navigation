@@ -3,17 +3,23 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import path from "path";
 
 const app = express();
-const PORT = 5001;
+
+//on configure le fichier .env pour le serveur.js dans le répertoire src/server/.env
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
+//const PORT = process.env.PORT;
+const PORT = 5001;
 // MongoDB connection
 mongoose
-  .connect("mongodb://localhost:27017/tasks", {
+  .connect("mongodb://localhost:27017/tasksdb", {
     //useNewUrlParser: true,
     //useUnifiedTopology: true,
   })
@@ -36,7 +42,7 @@ app.get("/tasks", async (req, res) => {
   res.json(tasks);
 });
 
-app.post("/task", async (req, res) => {
+app.post("/tasks", async (req, res) => {
   const task = new Task(req.body);
   await task.save();
   res.json(task);
@@ -55,8 +61,8 @@ app.delete("/tasks/:id", async (req, res) => {
 });
 
 app.get("/gettask/:id", async (req, res) => {
-    await Task.findById(req.params.id);
-    res.json({ message: "Get Task" });
-  });
+  await Task.findById(req.params.id);
+  res.json({ message: "Get Task" });
+});
 
-app.listen(PORT, () => console.log("Server running on port ${PORT}"));
+app.listen(PORT, () => console.log("Server running on port " + PORT));

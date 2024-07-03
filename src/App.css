@@ -44,8 +44,7 @@
 .templateRow {
   display: flex;
   flex-direction: row;
-  border: solid;
-  border-color: rgb(232, 215, 27);
+  border: 2px solid rgb(232, 215, 27);
   border-radius: 2%;
 }
 
@@ -55,6 +54,7 @@
   align-items: center;
   width: 33%;
   margin-top: 30px;
+
 }
 
 .templateColumn {
@@ -155,6 +155,10 @@
 .dateErrorVisible {
   visibility: visible;
   color: red;
+}
+
+table thead td {
+  border: 2px solid #ccc;
 }
 
 @keyframes App-logo-spin {
