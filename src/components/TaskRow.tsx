@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ITask from '../interfaces/ITask';
 
 
 type Props = {
   taskRow: ITask;
-  
+  deleteTaskInComponentTasks: (id: string) => void;
+  setTaskrow: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Taskrow: React.FC<any> = (props: Props) => {
+  //récupérer le props.taskRow pour ensuite pouvoir modifier le checkebox
+  const [taskRow, setTaskRow] = useState(props.taskRow);
+
   const updateTaskCheckbox = async (value: boolean) => {
 
+    setTaskRow({ ...taskRow, done: value })
+    console.log("change done value of task");
   }
-  <div className="header"><p >Liste des tâches</p></div>
+
+  const deleteTaskInComponent = (value: string) => {
+    props.deleteTaskInComponentTasks(taskRow._id!)
+  }
+  //  <div className="header"><p >Liste des tâches</p></div>
 
   return (
     <tr>
@@ -21,16 +31,16 @@ const Taskrow: React.FC<any> = (props: Props) => {
           name="done" />
       </td>
       <td>
-        {props.taskRow.title}
+        {taskRow.title}
       </td>
       <td>
-        {props.taskRow.description}
+        {taskRow.description}
       </td>
       <td>
-        {props.taskRow.date}
+        {taskRow.date}
       </td>
-      <td><button className="otherButtonValidate">Supprimer</button></td>
-      <td><button onClick={() => deleteTaskInComponentTasks} className="otherButtonValidate">Supprimer</button></td>
+      <td><button className="otherButtonValidate">Modifier</button></td>
+      <td><button onClick={() => deleteTaskInComponent('remove')} className="otherButtonValidate">Supprimer</button></td>
 
     </tr>
 

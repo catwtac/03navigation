@@ -157,6 +157,16 @@
   color: red;
 }
 
+.modalDeleteHidden {
+  visibility: hidden;
+}
+
+.modalDeleteVisible {
+  visibility: visible;
+}
+
+
+
 table thead td {
   border: 2px solid #ccc;
 }
